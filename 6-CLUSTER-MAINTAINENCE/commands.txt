@@ -1,0 +1,25 @@
+k get deployment frontend -o yaml | grep image: 
+k get pod -o yaml > q1.yaml
+kubectl create secret generic db-secret --from-literal=DB_Host=sql01 --from-literal=DB_User=root --from-literal=DB_Password=password123
+k exec -it app -n elastic-stack -- sh
+k scale deployment.apps/flask-web-app --replicas=3
+k autoscale deployment nginx-deployment --cpu-percent=80 --min=1 --max=3
+kubectl events hpa nginx-deployment | grep -i "ScalingReplicaSet"
+k get hpa --watch
+
+k describe node controlplane | grep -i "taints:"
+k drain node node01
+k cordon node node01
+k uncordon node node01
+
+vim /etc/apt/sources.list.d/kubernetes.list
+deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ / (add this)
+apt update
+apt-cache madison kubeadm
+apt-get install kubeadm=1.32.0-1.1
+kubeadm upgrade plan v1.32.0
+kubeadm upgrade apply v1.32.0
+apt-get install kubelet=1.32.0-1.1
+systemctl daemon-reload
+systemctl restart kubelet
+k uncordon controlplane

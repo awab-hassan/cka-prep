@@ -1,0 +1,27 @@
+- first deploy stuff (RBAC and stuff)
+- git clone https://github.com/kubernetes/autoscaler.git
+
+---
+apiVersion: "autoscaling.k8s.io/v1"
+kind: VerticalPodAutoscaler
+metadata:
+  name: flask-app
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: flask-app-4
+  updatePolicy:
+    updateMode: "Off"  # You can set this to "Auto" if you want automatic updates
+  resourcePolicy:
+    containerPolicies:
+      - containerName: '*'
+        minAllowed:
+          cpu: 100m
+        maxAllowed:
+          cpu: 1000m
+        controlledResources: ["cpu"]
+
+#!/bin/bash
+# A script to generate load.
+timeout 1000s bash -c 'for i in {1..10}; do (while true; do curl -s http://controlplane:30080; done) & done; wait'
