@@ -1,0 +1,29 @@
+helm install wordpress
+helm upgrade wordpress
+helm rollback wordpress
+helm uninstall wordpress
+snap install helm --classic
+add key pkg install helm
+helm install mysite bitnami/wordpress 
+
+helm --help 
+helm repo --help
+helm repo update --help
+helm search hub wordpress 
+helm repo add bitnami url_of_repo
+helm install wordpress bitnami/wordpress 
+helm uninstall wordpress
+helm repo list
+helm repo update
+
+helm install --set value="" --set value="" --set value="" wordpress bitnami/wordpress 
+helm install --values custom-val.yaml wordpress bitnami/wordpress
+
+helm pull bitnami/wordpress
+helm pull --untar bitnami/wordpress
+
+helm install nginx-release bitnami/nginx --version 7.1.0
+helm upgrade nginx-release bitnami/nginx
+helm list 
+helm history nginx-release
+helm rollback nginx-release 1
