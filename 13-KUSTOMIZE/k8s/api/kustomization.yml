@@ -1,0 +1,13 @@
+apiVersion: 
+kind: Kustomize
+
+resources:
+  - api-1.yml
+  - api-2.yml
+  - api-3.yml
+
+commanLabels:
+  strategy: api
+
+
+# this applies on only api folder resources

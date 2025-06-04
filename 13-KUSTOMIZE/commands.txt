@@ -1,0 +1,5 @@
+curl "github_link_of_kustomzie" | bash
+kustomize version --short
+kustomize build k8s/
+kustomize build k8s/ | kubectl apply -f -
+kustomize build k8s/ | kubectl delete -f -

@@ -1,0 +1,12 @@
+apiVersion: 
+kind: Kustomize
+
+resources:
+  - uncache.yml
+  - cache.yml
+
+commanLabels:
+  strategy: api
+
+
+# this applies on only cache folder resources

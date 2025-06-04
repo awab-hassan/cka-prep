@@ -1,0 +1,12 @@
+apiVersion: 
+kind: Kustomize
+
+resources:
+  - maria.yml
+  - mysql.yml
+  - postgres.yml
+
+commanLabels:
+  strategy: 
+  
+# this applies on only db folder resources

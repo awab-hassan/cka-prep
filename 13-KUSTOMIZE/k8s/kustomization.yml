@@ -1,0 +1,16 @@
+apiVersion: 
+kind: Kustomize
+
+resources:
+  - api/
+  - cache/
+  - db/
+
+namePrefix: -kubernetes
+
+nameSuffix: -setup
+
+commonAnnotations:
+  build-mail: awab@k8s
+
+# This applies on all resources
