@@ -1,0 +1,20 @@
+Install virtual box
+Install vagrant
+git clone cka_repo
+vagrant status
+vagrant up
+vagrant ssh node_name
+Add repository keys and repositories (refer to documentation)
+apt install kubelet, kubeadm, kubectl
+apt install containerd (every node)
+ps -p 1
+configure systemdcgroup driver
+make containerd folder
+containerd config default (creates a default file)
+run full command
+systemctl restart containerd
+sudo kubeadm init --apiserver-advertise-address master_node_address --pod-network-cider "10.244.0.0/16" --upload-certs
+run output mkdir command
+use flannel pod network 	
+just join nodes
+

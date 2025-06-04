@@ -1,0 +1,27 @@
+ip link 
+ip addr
+ip addr add 192.168.0.0/24 dev eth0
+ip route
+ip route add 192.168.100.1/16 via 192.168.200.1
+add 1 in /proc/sys/net/ipv4/ip_forward
+add routes in /etc/resolv.conf for DNS
+ip netns add red
+ip netns add blue
+ip netns 
+ip link add verth-red type veth peer name veth-blue
+ip link set veth-blue netns blue
+ip link set veth-red netns red
+ip -n red addr add 192.168.15.1 dev veth-red
+ip -n blue addr add 192.168.15.1 dev veth-blue
+ip -n red link set veth-red up
+ip -n blue link set veth-blue up
+ip link 
+ip addr
+ip addr add 192.168.1.10/24 dev eth0
+ip route
+ip route add 192.168.1.10/24 via 192.168.2.1
+cat /proc/sys/net/ipv4/ip_forward = 1
+arp
+netstat -plnt
+route 
+curl name_of_service.namespace_name.svc.cluster.local 
