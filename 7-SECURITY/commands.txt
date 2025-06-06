@@ -1,2 +1,8 @@
 openssl genrsa -out my-bank.key 1024
 openssl rsa -in my-bank.key -pubout > mybank.pem
+kubectl view csr
+kubectl approve csr name
+kubectl config view
+kubectl config view --kube-config=file.yaml
+kubctx 
+kubens

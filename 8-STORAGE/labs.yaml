@@ -1,0 +1,91 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp
+spec:
+  containers:
+  - name: webapp
+    image: kodekloud/event-simulator
+    volumeMounts:
+    - name: logs-volumes
+      mountPath: /log
+  volumes:
+  - name: logs-volumes
+    hostPath:
+      path: "/var/log/webapp"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-log
+spec:
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/pv/log"
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: claim-log-1
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Mi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp
+spec:
+  containers:
+  - name: webapp
+    image: kodekloud/event-simulator
+    volumeMounts:
+    - name: logs-volumes
+      mountPath: /log
+  volumes:
+  - name: logs-volumes
+    persistentVolumeClaim:
+      claimName: claim-log-1
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+  storageClassName: local-storage
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:alpine
+    volumeMounts:
+    - name: nginx-logs
+      mountPath: /var/www/html
+  volumes:
+  - name: nginx-logs
+    persistentVolumeClaim:
+      claimName: local-pvc
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: delayed-volume-sc
+provisioner: kubernetes.io/no-provisioner # indicates that this StorageClass does not support automatic provisioning
+volumeBindingMode: WaitForFirstConsumer

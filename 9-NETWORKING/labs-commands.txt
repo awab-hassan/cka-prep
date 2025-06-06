@@ -1,0 +1,19 @@
+kubectl get node -o wide
+ifconfig
+ip route show default 
+netstat -anp | grep etcd
+ps -aux | grep kubelet
+ps -aux | grep kubelet | grep /var/run
+
+kubectl delete daemonset -n kube-flannel kube-flannel-ds
+kubectl delete cm kube-flannel-cfg -n kube-flannel
+rm /etc/cni/net.d/10-flannel.conflist
+ip addr show eth0	
+cat /etc/kubernetes/manifests/kube-controller-manager.yaml   | grep cluster-cidr
+cat /etc/kubernetes/manifests/kube-apiserver.yaml   | grep cluster-ip-range
+kubectl logs -n kube-system kube-proxy-zhxmh
+kubectl exec -it hr -- nslookup mysql.payroll > /root/CKA/nslookup.out
+
+kubectl kustomize "https://github.com/nginx/nginx-gateway-fabric/config/crd/gateway-api/standard?ref=v1.5.1" | kubectl apply -f -
+
+kubectl apply -f https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/v1.6.1/deploy/crds.yaml

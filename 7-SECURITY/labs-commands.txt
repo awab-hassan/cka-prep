@@ -1,0 +1,25 @@
+openssl x509 -in server.crt -text -noout (to get cert info)
+crictl ps -a
+crictl logs container-id
+/etc/kubernetes/pki/etcd/ETCD_FILES_HERE
+/etc/kubernetes/pki/API_SERVER_FILES_HERE
+
+cat akshay.csr | base64 | tr -d '\n'
+k certificate approve akshay
+k certificate deny agent-smith
+
+kubectl config --kubeconfig=/root/my-kube-config use-context research
+vi ~/.bashrc
+export KUBECONFIG=/root/my-kube-config
+source ~/.bashrc
+k  get pod kube-apiserver-controlplane -n kube-system -o yaml
+kubectl describe rolebinding kube-proxy -n kube-system
+kubectl get pods --as dev-user
+kubectl describe clusterrolebinding cluster-admin
+kubectl create serviceaccount dashboard-sa
+
+- create service account
+- create role for it and bind it
+- Create token for it and you are good to go.
+- kubectl create token dashboard-sa 
+
